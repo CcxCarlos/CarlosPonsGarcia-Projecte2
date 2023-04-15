@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  <title th:text="${'Profile - ' + empresa.nom}"></title>
+  <style>
+    .navbar {
+      margin-bottom: 20px;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+    }
+
+    .nav-link {
+      font-size: 18px;
+    }
+
+    .dropdown-item {
+      font-size: 16px;
+    }
+
+    .footer {
+      background-color: #f8f9fa;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .align-items-center{
+      display: flex;
+      -ms-flex-align: center!important;
+      align-items: center!important;
+      flex-direction: column;
+    }
+    .caption {
+      max-width: 100%;
+      overflow-wrap: break-word;
+      padding-right: 20px !important;
+      padding-left: 20px !important;
+      position: relative;
+    }
+    .container-alumne{
+      padding-bottom: 15px
+    }
+
+    .card-body, h1, p{
+      padding: 1px;
+    }
+    .row{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    table {
+      border-collapse: collapse;
+      margin-left: 50px;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    h2{
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    #img_round{
+      width: 130px;
+      border-radius: 50%;
+    }
+
+    .linkAlumne:hover{
+      background-color: rgba(206, 203, 203, 0.58);
+    }
+    .alumneContainer:hover{
+      background-color: rgba(206, 203, 203, 0.58);
+    }
+
+    a:link, a:visited, a:active, a:hover{
+      text-decoration:none;
+    }
+    #senseAlumnes{
+      color: gray;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .col-sm-6{
+      margin: 40px 10px 10px;
+    }
+  </style>
+</head>
+<body>
+<div th:insert="~{fragments/base.html :: nav_bar}"></div>
+
+<section>
+  <div class="jumbotron">
+    <div class="card-body text-center">
+      <img id="img_round" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar">
+      <h1 class="valuesEmpresa" th:text="${empresa.nom }"></h1>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>INFORMACIO</h2>
+  <div class="row">
+    <div  class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+      <div class="thumbnail">
+        <div class="caption">
+          <p th:text="${'Identificador: ' + empresa.id}"></p>
+          <p th:text="${'CIF: ' + empresa.id}"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section class="container">
+  <h2>ALUMNES</h2>
+  <h1 id="senseAlumnes" th:if="${empresa.alumnes.isEmpty()}">Sense alumnes </h1>
+  <div class="row" th:unless="${empresa.alumnes.isEmpty()}">
+    <div class="container-alumne col-sm-6 col-md-3" th:each="alumne : ${empresa.alumnes}" >
+      <a class="linkAlumne" th:href="'/api/alumnes/' + ${alumne.id}">
+        <div class="thumbnail alumneContainer">
+          <div class="caption">
+              <h3 th:text="${alumne.id}"></h3>
+              <p th:text="${alumne.nom + ' ' + alumne.cognoms}"></p>
+              <p th:text="${'Dni: ' + alumne.dni}"></p>
+              <p th:text="${'Cicle: ' + alumne.cicle}"></p>
+              <p th:text="${'Modalitat: ' + alumne.modalitat}"></p>
+              <p th:text="${'Estat practiques: ' + alumne.estatPractiques}"></p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<div th:insert="~{fragments/base.html :: footer}"></div>
+
+<script th:src="@{https://code.jquery.com/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js}"></script>
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+</body>
+</html>
